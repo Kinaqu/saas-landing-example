@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MinuteFlow Thumbnail</title>
+    <style>
+      :root {
+        --bg: #f4efe6;
+        --ink: #102033;
+        --muted: #6a7686;
+        --line: rgba(16, 32, 51, 0.12);
+        --accent: #d97a4a;
+        --teal: #1f8f84;
+        --cream: #fffaf3;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 100%; height: 100%; }
+      body {
+        font-family: Manrope, Inter, system-ui, sans-serif;
+        background:
+          radial-gradient(circle at 12% 12%, rgba(217, 122, 74, 0.24), transparent 28%),
+          radial-gradient(circle at 86% 18%, rgba(31, 143, 132, 0.18), transparent 24%),
+          linear-gradient(180deg, #f7f2ea 0%, #f2ecdf 100%);
+        color: var(--ink);
+      }
+
+      .frame {
+        width: 1600px;
+        height: 900px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .noise {
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        background-image:
+          radial-gradient(rgba(16,32,51,0.6) 0.7px, transparent 0.7px);
+        background-size: 16px 16px;
+        mix-blend-mode: multiply;
+      }
+
+      .shell {
+        position: absolute;
+        inset: 38px;
+        display: grid;
+        grid-template-columns: 1.02fr 0.98fr;
+        gap: 36px;
+      }
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        border-radius: 24px;
+        border: 1px solid rgba(16,32,51,0.08);
+        background: rgba(255,250,242,0.78);
+        box-shadow: 0 24px 64px rgba(16, 32, 51, 0.08);
+        width: fit-content;
+        backdrop-filter: blur(18px);
+      }
+
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        overflow: hidden;
+        flex: 0 0 auto;
+      }
+
+      .logo svg { width: 100%; height: 100%; display: block; }
+
+      .brand-name {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      .brand-meta {
+        margin-top: 6px;
+        font-size: 14px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(16, 32, 51, 0.42);
+        font-weight: 700;
+      }
+
+      .copy { max-width: 760px; }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 26px;
+        border: 1px solid var(--line);
+        background: rgba(255, 250, 242, 0.82);
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: rgba(16, 32, 51, 0.56);
+        font-weight: 800;
+      }
+
+      .eyebrow .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 18px rgba(217, 122, 74, 0.7);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Sora, Manrope, sans-serif;
+        font-size: 96px;
+        line-height: 0.94;
+        letter-spacing: -0.08em;
+        max-width: 760px;
+      }
+
+      .accent {
+        display: block;
+        margin-top: 12px;
+        background: linear-gradient(90deg, #d97a4a 0%, #f2a874 45%, #b8b29a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .sub {
+        margin-top: 28px;
+        max-width: 650px;
+        font-size: 32px;
+        line-height: 1.45;
+        color: rgba(16, 32, 51, 0.68);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .chip {
+        padding: 14px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,250,242,0.74);
+        font-size: 21px;
+        color: rgba(16,32,51,0.72);
+        box-shadow: 0 12px 30px rgba(16, 32, 51, 0.05);
+      }
+
+      .footer-line {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .tag {
+        padding: 14px 18px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .stack {
+        font-size: 21px;
+        color: rgba(16,32,51,0.54);
+        font-weight: 700;
+      }
+
+      .right {
+        position: relative;
+        border-radius: 42px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at top left, rgba(217, 122, 74, 0.2), transparent 24%),
+          linear-gradient(180deg, #162536 0%, #0f1e2e 100%);
+        box-shadow: 0 36px 90px rgba(16, 32, 51, 0.22);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: linear-gradient(180deg, white, rgba(255,255,255,0.6));
+      }
+
+      .panel {
+        position: absolute;
+        border-radius: 28px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(14px);
+        color: rgba(249,242,232,0.92);
+      }
+
+      .panel.small {
+        width: 220px;
+        padding: 20px;
+      }
+
+      .panel.center {
+        left: 50%;
+        top: 108px;
+        transform: translateX(-50%);
+        width: 270px;
+        padding: 22px 24px;
+      }
+
+      .p1 { left: 42px; top: 220px; }
+      .p2 { left: 42px; top: 472px; }
+      .p3 { right: 42px; top: 220px; }
+      .p4 { right: 42px; top: 472px; }
+
+      .label {
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(249,242,232,0.42);
+        font-weight: 800;
+      }
+
+      .title {
+        margin-top: 12px;
+        font-family: Sora, Manrope, sans-serif;
+        font-size: 54px;
+        line-height: 0.98;
+        letter-spacing: -0.07em;
+      }
+
+      .mini-title {
+        margin-top: 10px;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .mini-body {
+        margin-top: 10px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: rgba(249,242,232,0.62);
+      }
+
+      .beam {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(217,122,74,0.0), rgba(217,122,74,0.9), rgba(31,143,132,0.75), rgba(31,143,132,0));
+        filter: blur(0.4px);
+        opacity: 0.9;
+      }
+
+      .beam.b1 { left: 210px; top: 330px; width: 220px; transform: rotate(-12deg); }
+      .beam.b2 { left: 210px; top: 580px; width: 220px; transform: rotate(10deg); }
+      .beam.b3 { right: 210px; top: 330px; width: 220px; transform: rotate(12deg); }
+      .beam.b4 { right: 210px; top: 580px; width: 220px; transform: rotate(-10deg); }
+
+      .signal {
+        position: absolute;
+        left: 28px;
+        top: 26px;
+        right: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: rgba(249,242,232,0.5);
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .live {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.06);
+        padding: 10px 14px;
+        font-size: 13px;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .wave {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+      }
+
+      .wave span {
+        width: 3px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .wave span:nth-child(1) { height: 10px; }
+      .wave span:nth-child(2) { height: 18px; }
+      .wave span:nth-child(3) { height: 14px; }
+      .wave span:nth-child(4) { height: 22px; }
+      .wave span:nth-child(5) { height: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="noise"></div>
+      <div class="shell">
+        <div class="left">
+          <div>
+            <div class="brand">
+              <div class="logo">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="64" height="64" rx="18" fill="#102033" />
+                  <path d="M18 21C18 18.7909 19.7909 17 22 17H42C44.2091 17 46 18.7909 46 21V25C46 27.2091 44.2091 29 42 29H22C19.7909 29 18 27.2091 18 25V21Z" fill="#D97A4A" />
+                  <path d="M18 39C18 36.7909 19.7909 35 22 35H35C37.2091 35 39 36.7909 39 39V43C39 45.2091 37.2091 47 35 47H22C19.7909 47 18 45.2091 18 43V39Z" fill="#1F8F84" />
+                  <path d="M42 35H46V47H42C39.7909 47 38 45.2091 38 43V39C38 36.7909 39.7909 35 42 35Z" fill="#F1E6D7" />
+                </svg>
+              </div>
+              <div>
+                <div class="brand-name">MinuteFlow</div>
+                <div class="brand-meta">AI Meeting Memory For Teams</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="copy">
+            <div class="eyebrow"><span class="dot"></span> Portfolio Case Cover</div>
+            <h1>
+              SaaS landing page for
+              <span class="accent">AI meeting notes, tasks, and summaries.</span>
+            </h1>
+            <div class="sub">
+              Brand-led product storytelling, responsive UI, custom motion, and portfolio-ready SaaS presentation.
+            </div>
+            <div class="chips">
+              <div class="chip">React</div>
+              <div class="chip">TypeScript</div>
+              <div class="chip">Tailwind CSS</div>
+              <div class="chip">Motion</div>
+            </div>
+          </div>
+
+          <div class="footer-line">
+            <div class="tag">Landing Page Developer</div>
+            <div class="stack">Conversion-focused UI • Visual hierarchy • Responsive implementation</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="grid"></div>
+          <div class="signal">
+            <span>The product story</span>
+            <div class="live">
+              <div class="wave"><span></span><span></span><span></span><span></span><span></span></div>
+              Live capture
+            </div>
+          </div>
+
+          <div class="panel small p1">
+            <div class="label">Input</div>
+            <div class="mini-title">Calendar and agenda</div>
+            <div class="mini-body">Attendees, context, and the meeting brief are already in place.</div>
+          </div>
+
+          <div class="panel small p2">
+            <div class="label">Input</div>
+            <div class="mini-title">Live transcript</div>
+            <div class="mini-body">Decisions, objections, promises, and blockers are captured once.</div>
+          </div>
+
+          <div class="panel center">
+            <div class="label">MinuteFlow engine</div>
+            <div class="title">Talking turns into momentum.</div>
+            <div class="mini-body">Clean outputs instead of raw transcript overload.</div>
+          </div>
+
+          <div class="panel small p3">
+            <div class="label">Output</div>
+            <div class="mini-title">Structured notes</div>
+            <div class="mini-body">Readable meeting memory with context worth keeping.</div>
+          </div>
+
+          <div class="panel small p4">
+            <div class="label">Output</div>
+            <div class="mini-title">Assigned tasks</div>
+            <div class="mini-body">Owners and due dates leave the call with the right context.</div>
+          </div>
+
+          <div class="beam b1"></div>
+          <div class="beam b2"></div>
+          <div class="beam b3"></div>
+          <div class="beam b4"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
