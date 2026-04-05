@@ -66,9 +66,9 @@ export function HeroVisual() {
       <div className="relative z-10 space-y-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[rgba(249,242,232,0.5)]">The product story</p>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[rgba(249,242,232,0.5)]">Live meeting in</p>
             <p className="mt-2 text-sm leading-6 text-[rgba(249,242,232,0.68)]">
-              One meeting in. Notes, tasks, and the right recap already out.
+              Decisions, tasks, and recap out.
             </p>
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-2 text-xs font-semibold text-[rgba(249,242,232,0.84)]">
@@ -82,20 +82,20 @@ export function HeroVisual() {
             <FlowChip
               innerRef={calendarRef}
               icon={<CalendarClock className="size-4" />}
-              title="Calendar and agenda"
-              body="Pulls title, attendees, CRM context, and the meeting brief before the call starts."
+              title="Calendar context"
+              body="Title, attendees, and prep are pulled in automatically."
             />
             <FlowChip
               innerRef={transcriptRef}
               icon={<AudioLines className="size-4" />}
               title="Live transcript"
-              body="Captures decisions, risks, blockers, and repeated promises while people talk."
+              body="Decisions and blockers are caught while people talk."
             />
             <FlowChip
               innerRef={chatRef}
               icon={<MessageSquareText className="size-4" />}
               title="Team context"
-              body="Understands names, projects, and follow-up language from the channels your team already uses."
+              body="Projects and customer history sharpen the recap."
             />
           </div>
 
@@ -108,7 +108,7 @@ export function HeroVisual() {
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[rgba(249,242,232,0.48)]">MinuteFlow engine</p>
                 <h3 className="heading-font mt-2 text-2xl font-semibold tracking-[-0.05em] text-[rgba(249,242,232,0.96)]">
-                  Meeting memory that turns talking into momentum.
+                  Talking turns into next steps.
                 </h3>
               </div>
               <div className="rounded-3xl bg-white/10 p-3 text-[var(--accent-soft)]">
@@ -118,15 +118,15 @@ export function HeroVisual() {
 
             <div className="rounded-[26px] border border-white/10 bg-[rgba(9,17,29,0.52)] p-4">
               <div className="mb-4 flex items-center justify-between text-xs text-[rgba(249,242,232,0.52)]">
-                <span>Detected meeting intent</span>
+                <span>Detected signal</span>
                 <span>9 action moments</span>
               </div>
               <div className="space-y-3 text-sm leading-6 text-[rgba(249,242,232,0.84)]">
                 <div className="rounded-2xl bg-white/5 p-3">
-                  <span className="font-semibold text-white">Budget concern:</span> customer asked to see a phased rollout before procurement.
+                  <span className="font-semibold text-white">Budget concern:</span> customer wants a phased rollout before procurement review.
                 </div>
                 <div className="rounded-2xl bg-white/5 p-3">
-                  <span className="font-semibold text-white">Decision made:</span> keep pilot to one workspace, invite sales engineer on next call.
+                  <span className="font-semibold text-white">Decision made:</span> keep the pilot to one workspace and add an SE to the next call.
                 </div>
                 <div className="rounded-2xl bg-white/5 p-3">
                   <span className="font-semibold text-white">Follow-up required:</span> send recap, owner list, and risk notes within the hour.
@@ -140,7 +140,7 @@ export function HeroVisual() {
                   <Sparkles className="size-4" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-[rgba(249,242,232,0.92)]">Clean output, not raw transcript</div>
+                  <div className="text-sm font-semibold text-[rgba(249,242,232,0.92)]">Clean output, not transcript overload</div>
                   <div className="text-xs text-[rgba(249,242,232,0.56)]">Owners, deadlines, decisions, and recap are separated automatically.</div>
                 </div>
               </div>
@@ -153,19 +153,19 @@ export function HeroVisual() {
               innerRef={notesRef}
               icon={<FileText className="size-4" />}
               title="Structured notes"
-              body="A readable source of truth with key decisions, objections, and talking points."
+              body="Readable notes with the moments worth keeping."
             />
             <FlowChip
               innerRef={tasksRef}
               icon={<ListTodo className="size-4" />}
               title="Assigned tasks"
-              body="Action items broken out by owner, due date, and dependency before the call is forgotten."
+              body="Owners and due dates are broken out automatically."
             />
             <FlowChip
               innerRef={summaryRef}
               icon={<CheckCheck className="size-4" />}
-              title="Shareable summary"
-              body="A short brief for the team, manager, or client without rewriting the meeting by hand."
+              title="Shareable recap"
+              body="A short summary for the team, manager, or customer."
             />
           </div>
         </div>
